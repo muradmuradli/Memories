@@ -1,3 +1,9 @@
 # Memories
 
-A simple CRUD application with pagination & sorting and custom authentication.
+A simple CRUD application with the following functionalities:
+- Authentication
+- CRUD operations
+- Verify account and reset password
+
+If you don't see the verificaiton email, check the spam folder.
+
