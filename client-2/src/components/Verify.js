@@ -13,7 +13,7 @@ const Verify = () => {
   const verifyToken = async () => {
     try {
       const { data } = await axios.post(
-        `https://memories-backend-fxqu.onrender.com/auth/verify-email`,
+        `https://memories-backend-fxqu.onrender.com/api/v1/auth/verify-email`,
         {
           verificationToken: query.get("token"),
           email: query.get("email"),
@@ -26,7 +26,6 @@ const Verify = () => {
 
   useEffect(() => {
     verifyToken();
-    console.log("dick");
   }, []);
 
   return (
