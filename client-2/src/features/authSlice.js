@@ -142,10 +142,18 @@ const authSlice = createSlice({
     [register.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.authData = action.payload;
+      state.showAlert = true;
+      state.alertText = "Registration successfull! Redirecting...";
+      state.alertType = "info";
     },
     [register.rejected]: (state) => {
       state.authData = null;
+      state.showAlert = true;
+      state.alertText = action.payload.msg;
+      state.alertType = "danger";
       state.isLoading = false;
+      state.name = "";
+      state.userId = "";
     },
     [login.pending]: (state) => {
       state.isLoading = true;
