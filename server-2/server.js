@@ -3,9 +3,9 @@ const express = require("express");
 const connectDB = require("./db/connectDB");
 const fileUpload = require("express-fileupload");
 const cors = require("cors");
-import helmet from "helmet";
-import xss from "xss-clean";
-import mongoSanitize from "express-mongo-sanitize";
+const helmet = require("helmet");
+const xss = require("xss-clean");
+const mongoSanitize = require("express-mongo-sanitize");
 
 require("dotenv").config();
 
