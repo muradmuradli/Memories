@@ -146,7 +146,7 @@ const authSlice = createSlice({
       state.alertText = "Registration successfull! Redirecting...";
       state.alertType = "info";
     },
-    [register.rejected]: (state) => {
+    [register.rejected]: (state, action) => {
       state.authData = null;
       state.showAlert = true;
       state.alertText = action.payload.msg;
