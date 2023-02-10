@@ -23,7 +23,7 @@ const register = async (req, res) => {
 
   const user = await User.create({ name, email, password, verificationToken });
 
-  const origin = "https://memories-frontend-9hwc.onrender.com";
+  const origin = "https://memories-frontend-6vel.onrender.com";
   await sendVerificationEmail({
     name: user.name,
     email: user.email,
@@ -140,7 +140,7 @@ const forgotPassword = async (req, res) => {
   if (user) {
     const passwordToken = crypto.randomBytes(70).toString("hex");
     // send email
-    const origin = "https://memories-frontend-9hwc.onrender.com/info";
+    const origin = "https://memories-frontend-6vel.onrender.com/info";
 
     await sendResetPasswordEmail({
       name: user.name,
