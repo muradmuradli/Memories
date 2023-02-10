@@ -34,6 +34,7 @@ const attachCookiesToResponse = ({ res, user, refreshToken }) => {
   res.cookie("accessToken", accessTokenJWT, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
+    domain: "https://memories-frontend-mhv4.onrender.com",
     signed: true,
     expires: new Date(Date.now() + oneDay),
   });
@@ -41,6 +42,7 @@ const attachCookiesToResponse = ({ res, user, refreshToken }) => {
   res.cookie("refreshToken", refreshTokenJWT, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
+    domain: "https://memories-frontend-mhv4.onrender.com",
     signed: true,
     expires: new Date(Date.now() + longerExpiration),
   });
