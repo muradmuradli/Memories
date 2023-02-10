@@ -54,7 +54,7 @@ export const register = createAsyncThunk(
 
       return data.msg;
     } catch (error) {
-      return thunkAPI.rejectWithValue("Something went wrong");
+      return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
