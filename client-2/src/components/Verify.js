@@ -13,7 +13,7 @@ const Verify = () => {
   const verifyToken = async () => {
     try {
       const { data } = await axios.post(
-        `http://localhost:5000/api/v1/auth/verify-email`,
+        `https://memories-backend-fxqu.onrender.com/auth/verify-email`,
         {
           verificationToken: query.get("token"),
           email: query.get("email"),
