@@ -121,6 +121,8 @@ const initialState = {
   alertType: "",
 };
 
+const hey = "hey";
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
