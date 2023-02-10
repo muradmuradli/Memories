@@ -1,4 +1,4 @@
-# Memories
+# Memories, DEMO in the description
 
 A simple CRUD application with the following functionalities:
 - Authentication
