@@ -1,12 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const url = "https://memories-backend-fxqu.onrender.com/api/v1";
+
 export const createComment = createAsyncThunk(
   "comments/createComment",
   async (name, thunkAPI) => {
     try {
       const { postId, message } = name;
-      const { data } = await axios.post(`/posts/comments/${postId}`, {
+      const { data } = await axios.post(`${url}/posts/comments/${postId}`, {
         message,
       });
       return data.comment;
@@ -21,7 +23,7 @@ export const getAllComments = createAsyncThunk(
   async (name, thunkAPI) => {
     try {
       const { postId } = name;
-      const { data } = await axios.get(`/posts/comments/${postId}`);
+      const { data } = await axios.get(`${url}/posts/comments/${postId}`);
       return data.comments;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -35,7 +37,7 @@ export const deleteComment = createAsyncThunk(
     try {
       try {
         const { postId, commentId } = name;
-        await axios.delete(`/posts/comments/${postId}/${commentId}`);
+        await axios.delete(`${url}/posts/comments/${postId}/${commentId}`);
         return commentId;
       } catch (error) {
         console.log(error.response);
@@ -54,7 +56,7 @@ export const deleteReply = createAsyncThunk(
       console.log(replyId);
       try {
         await axios.delete(
-          `/posts/comments/${commentId}/${replyId}/deleteComment`
+          `${url}/posts/comments/${commentId}/${replyId}/deleteComment`
         );
       } catch (error) {
         console.log(error.response);
@@ -72,7 +74,7 @@ export const replyToComment = createAsyncThunk(
     try {
       const { postId, commentId, reply } = name;
       const { data } = await axios.post(
-        `/posts/comments/${postId}/${commentId}`,
+        `${url}/posts/comments/${postId}/${commentId}`,
         { message: reply }
       );
       return data.comment;
@@ -88,12 +90,12 @@ export const likeComment = createAsyncThunk(
       const { commentId, _id } = name;
       if (!commentId) {
         const { data } = await axios.patch(
-          `/posts/comments/${_id}/likeComment`
+          `${url}/posts/comments/${_id}/likeComment`
         );
         return data.comment;
       } else {
         const { data } = await axios.patch(
-          `/posts/comments/${commentId}/${_id}/likeComment`
+          `${url}/posts/comments/${commentId}/${_id}/likeComment`
         );
         return data.comment;
       }

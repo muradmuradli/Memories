@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const url = "http://localhost:5000/api/v1";
+const url = "https://memories-backend-fxqu.onrender.com/api/v1";
 
 export const getPosts = createAsyncThunk(
   "posts/getPosts",
@@ -11,10 +11,12 @@ export const getPosts = createAsyncThunk(
 
       if (name) {
         const { title, tags } = name;
-        const { data } = await axios.get(`/posts?&title=${title}&tags=${tags}`);
+        const { data } = await axios.get(
+          `${url}/posts?&title=${title}&tags=${tags}`
+        );
         return data;
       } else {
-        const { data } = await axios.get(`/posts?page=${page}`);
+        const { data } = await axios.get(`${url}/posts?page=${page}`);
         return data;
       }
     } catch (error) {
@@ -34,12 +36,12 @@ export const createPost = createAsyncThunk(
       formData.append("image", selectedFile);
 
       try {
-        const { data } = await axios.post(`/posts/upload`, formData);
+        const { data } = await axios.post(`${url}/posts/upload`, formData);
         newPost.selectedFile = data.image.src;
       } catch (error) {
         console.log(error);
       }
-      const { data } = await axios.post(`/posts`, newPost);
+      const { data } = await axios.post(`${url}/posts`, newPost);
 
       console.log(data);
       return data.post;
@@ -54,7 +56,7 @@ export const updatePost = createAsyncThunk(
   async (name, thunkAPI) => {
     try {
       const { data } = await axios.patch(
-        `/posts/${name.postData._id}`,
+        `${url}/posts/${name.postData._id}`,
         name.postData
       );
 
@@ -69,7 +71,7 @@ export const likePost = createAsyncThunk(
   "posts/likePost",
   async (name, thunkAPI) => {
     try {
-      const { data } = await axios.post(`posts/${name._id}/likePost`);
+      const { data } = await axios.post(`${url}posts/${name._id}/likePost`);
 
       return data.post;
     } catch (error) {
@@ -82,7 +84,7 @@ export const deletePost = createAsyncThunk(
   "posts/deletePost",
   async (name, thunkAPI) => {
     try {
-      await axios.delete(url + `/posts/${name._id}`);
+      await axios.delete(`${url}/posts/${name._id}`);
       return name._id;
     } catch (error) {
       return thunkAPI.rejectWithValue("Something went wrong");
@@ -109,7 +111,7 @@ export const getSinglePost = createAsyncThunk(
   async (name, thunkAPI) => {
     try {
       const { postId } = name;
-      const { data } = await axios.get(`/posts/${postId}`);
+      const { data } = await axios.get(`${url}/posts/${postId}`);
       return data.post;
     } catch (error) {
       return thunkAPI.rejectWithValue("Something went wrong");

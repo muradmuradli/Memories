@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const url = "http://localhost:5000/api/v1";
+const url = "https://memories-backend-fxqu.onrender.com/api/v1";
 
 export const login = createAsyncThunk("auth/login", async (name, thunkAPI) => {
   try {
     const { userData, navigate } = name;
-    const { data } = await axios.post("/auth/login", { ...userData });
+    const { data } = await axios.post(`${url}/auth/login`, { ...userData });
 
     // navigate here
     setTimeout(() => {
@@ -25,7 +25,7 @@ export const logout = createAsyncThunk(
   "auth/logout",
   async (name, thunkAPI) => {
     try {
-      const { data } = await axios.delete("/auth/logout");
+      const { data } = await axios.delete(`${url}/auth/logout`);
 
       return data;
     } catch (error) {
@@ -48,7 +48,7 @@ export const register = createAsyncThunk(
         password: password,
       };
 
-      const { data } = await axios.post(`/auth/register`, newUser);
+      const { data } = await axios.post(`${url}/auth/register`, newUser);
 
       navigate("/info", { state: { text: data.msg } });
 
@@ -64,12 +64,9 @@ export const forgotPassword = createAsyncThunk(
   async (name, thunkAPI) => {
     try {
       const { email, navigate } = name;
-      const { data } = await axios.post(
-        "http://localhost:5000/api/v1/auth/forgot-password",
-        {
-          email,
-        }
-      );
+      const { data } = await axios.post(`${url}/auth/forgot-password`, {
+        email,
+      });
 
       navigate("/info", { state: { text: data.msg } });
       console.log(data);
@@ -98,14 +95,11 @@ export const resetPassword = createAsyncThunk(
   async (name, thunkAPI) => {
     try {
       const { password, token, email, navigate } = name;
-      const { data } = await axios.post(
-        "http://localhost:5000/api/v1/auth/reset-password",
-        {
-          password,
-          token,
-          email,
-        }
-      );
+      const { data } = await axios.post(`${url}/auth/reset-password`, {
+        password,
+        token,
+        email,
+      });
       console.log(data);
 
       setTimeout(() => {
